@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from landing_page import landing_page
 from overview import generate_overview_func
@@ -6,9 +6,18 @@ from sprint_generator import generate_sprint
 from flask_cors import CORS, cross_origin
 from generate_test_cases import generate_test_cases
 from closing_document import generate_closing_doc_func
+from add_task_to_jira import create_jira_task
+
+import threading
+import time
 
 app = Flask(__name__)
 
+
+def background_task(task_data):
+    print("Background task started...")
+    create_jira_task(task_data)# Simulate a time-consuming task
+    print(f"Background task completed with data: {task_data}")
 
 def create_response(status, message, data, code):
     """Creates a response object with status, message, data, and HTTP status code."""
@@ -77,6 +86,19 @@ def generate_closing_document_route():
     else:
         return {"status": "error", "message": "Invalid JSON payload"}, 400
 
+@app.route("/api/start-background-task", methods=["POST"])
+@cross_origin()
+def start_background_task_route():
+    if request.is_json:
+        par = request.get_json()
+    
+        thread = threading.Thread(target=background_task, args=(par.get("client_requirements"),))
+        thread.start()
+    
+    return jsonify({"message": "Background task started successfully!"}), 202
+    
+  
+
 
 if __name__ == "__main__":
-    app.run(port=5001)
+    app.run(port=5000)
