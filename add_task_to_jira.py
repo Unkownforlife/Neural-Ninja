@@ -14,11 +14,11 @@ def create_jira_task(requirements):
     suffix = ''.join(random.choices(string.digits, k=suffix_length))
     key = f"{prefix}{suffix}"
 
-    base_url = "https://joshiprem70.atlassian.net/rest/api/3/myself"
+    base_url = "https://joshiprem70.atlassian.net"
     url = f"{base_url}/rest/api/3/myself" 
 
     username = "joshiprem70@gmail.com"
-    password = "ATATT3xFfGF0DKh_8hVdpJhRuI5OBkRxll82z1F7qBIV3iut2d36e6E5GzoiuvFpH5P-wXzFCz5Bt7EIdpvzlPOPrwpIMaT27nlRPaSzRZlJQSHCL6lGPETzBzZIb0Vs0yG9k-1eKDVBCL8_Zc0SVO1XdVrL7kgUntwQ4aAW-DLXN00xOtOUW7w=16DC4F54"
+    password = "ATATT3xFfGF0wq0GLs3qj2b0g1m0QuPk44QmmxVn7YTA_IdysvFbcfeLnlV2iWmnquLnfCrMI0XxPu-XlARmqpWgnSo3rKSTax5khs4-nDNYH9f7rOMWUzTdyQqu3iCx7-kPncKeNlH5fAIgHmUMxmLz8n7Uw-mWkBNfQLvlPss4K0x7K8n7LWQ=7E73F3A4"
 
     response = requests.get(url, auth=HTTPBasicAuth(username, password))
 
