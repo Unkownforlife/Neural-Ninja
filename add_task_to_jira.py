@@ -14,10 +14,11 @@ def create_jira_task(requirements):
     suffix = ''.join(random.choices(string.digits, k=suffix_length))
     key = f"{prefix}{suffix}"
 
-    url = "https://joshiprem70.atlassian.net/rest/api/3/myself" 
+    base_url = "https://joshiprem70.atlassian.net/rest/api/3/myself"
+    url = f"{base_url}/rest/api/3/myself" 
 
     username = "joshiprem70@gmail.com"
-    password = "ATATT3xFfGF0m6bi_vDgWnnG7pzbh5CioD7hoxU5g45LLvjeCrRRuoZfahx4tyebpn5P3IG9VBrYuXFsmuuI_ySVPzZnV0J269OL0Wf2mnInjl21Hdv_6pJiWY59XEDROMFB6o3MGCMNxDfA5-oSzx5V_GOkfEyd7YDt4qfD2DSMzTQlt18LuL4=AA84488E"
+    password = "ATATT3xFfGF0DKh_8hVdpJhRuI5OBkRxll82z1F7qBIV3iut2d36e6E5GzoiuvFpH5P-wXzFCz5Bt7EIdpvzlPOPrwpIMaT27nlRPaSzRZlJQSHCL6lGPETzBzZIb0Vs0yG9k-1eKDVBCL8_Zc0SVO1XdVrL7kgUntwQ4aAW-DLXN00xOtOUW7w=16DC4F54"
 
     response = requests.get(url, auth=HTTPBasicAuth(username, password))
 
@@ -27,7 +28,7 @@ def create_jira_task(requirements):
 
         #create project in jira
 
-        url = "https://joshiprem70.atlassian.net/rest/api/3/project"
+        url = f"{base_url}/rest/api/3/project"
         payload = {
             "assigneeType": "UNASSIGNED",
             "avatarId": None,
@@ -51,7 +52,7 @@ def create_jira_task(requirements):
 
         if response.status_code == 200:
             print("Project created successfully!")
-            url = "https://joshiprem70.atlassian.net/rest/api/3/issue"
+            url = f"{base_url}/rest/api/3/issue"
             
             sprint_new = [{"text": sprint_goal, "type": "text"} for sprint_goal in tasks.get('sprint_goals', [])]
             payload = {
